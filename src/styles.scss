@@ -1,1 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global neutral pastel theme */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  background-color: #e5e9f0; /* ????-???? ?? */
+  color: #1f2933;
+}
+
+/* Material theming tweaks */
+
+.mat-mdc-table {
+  background: #ffffff;
+}
+
+.mat-mdc-header-row {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.mat-mdc-row:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.mat-mdc-row:hover {
+  background-color: #edf5ff;
+}
+
+.mat-mdc-raised-button.mat-primary {
+  background-color: #3b82f6; /* ???? ?? */
+}
+
+.mat-mdc-raised-button.mat-primary:hover {
+  background-color: #2563eb;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+}
+

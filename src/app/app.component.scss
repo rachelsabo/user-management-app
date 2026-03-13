@@ -1,0 +1,45 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f3f4f6;
+}
+
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.app-main {
+  flex: 1;
+  padding: 1.5rem 0;
+}
+
+.app-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.app-footer {
+  border-top: 1px solid rgba(148, 163, 184, 0.35);
+  background-color: #ffffff;
+}
+
+.app-footer-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: rgba(51, 65, 85, 0.7);
+}
+

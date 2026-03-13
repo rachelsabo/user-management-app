@@ -1,0 +1,85 @@
+<mat-card class="user-list-card">
+  <mat-card-header>
+    <mat-card-title>Users</mat-card-title>
+    <mat-card-subtitle>Manage your application's users</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    @if (loading()) {
+      <div class="state state-loading">
+        <mat-spinner diameter="32"></mat-spinner>
+        <span>Loading users...</span>
+      </div>
+    } @else if (error()) {
+      <div class="state state-error">
+        <span class="material-icons state-icon">error_outline</span>
+        <span>{{ error() }}</span>
+      </div>
+    } @else {
+      @if (!users().length) {
+        <div class="state state-empty">
+          <span class="material-icons state-icon">group_off</span>
+          <span>No users found.</span>
+        </div>
+      } @else {
+        <div class="table-wrapper mat-elevation-z2">
+          <table mat-table [dataSource]="users()">
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> ID </th>
+              <td mat-cell *matCellDef="let user"> {{ user.id }} </td>
+            </ng-container>
+
+            <!-- Email Column -->
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef> Email </th>
+              <td mat-cell *matCellDef="let user"> {{ user.email }} </td>
+            </ng-container>
+
+            <!-- Username Column -->
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef> Username </th>
+              <td mat-cell *matCellDef="let user"> {{ user.username }} </td>
+            </ng-container>
+
+            <!-- Age Column -->
+            <ng-container matColumnDef="age">
+              <th mat-header-cell *matHeaderCellDef> Age </th>
+              <td mat-cell *matCellDef="let user"> {{ user.age }} </td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef class="actions-header">
+                Actions
+              </th>
+              <td mat-cell *matCellDef="let user" class="actions-cell">
+                <button
+                  mat-icon-button
+                  color="primary"
+                  [routerLink]="['/users', user.id, 'edit']"
+                  matTooltip="Edit user"
+                >
+                  <span class="material-icons">edit</span>
+                </button>
+                <button
+                  mat-icon-button
+                  color="warn"
+                  type="button"
+                  (click)="onDelete(user)"
+                  matTooltip="Delete user"
+                >
+                  <span class="material-icons">delete</span>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        </div>
+      }
+    }
+  </mat-card-content>
+</mat-card>
+

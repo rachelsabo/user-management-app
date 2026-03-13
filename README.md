@@ -1,59 +1,187 @@
-# UserManagementApp
+# Angular NgRx User Management
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.22.
+A small demo application built with **Angular 19**, **NgRx**, **Angular Material** and **Reactive Forms**.
 
-## Development server
+The application demonstrates state management using NgRx, form validation, and basic CRUD-like UI interactions over an in-memory users list.
 
-To start a local development server, run:
+---
+
+## Features
+
+* Angular 19 project setup with standalone components
+* NgRx Store with:
+
+  * Actions
+  * Reducer
+  * Effects
+  * Selectors
+* Reactive Forms with validations
+* Mock “HTTP-like” request with 500ms delay (via NgRx Effect)
+* User list with loading, error and empty states
+* User edit form with validation
+* Delete confirmation (console output)
+* Soft, modern Material UI
+
+---
+
+## Data Model
+
+```ts
+export interface User {
+  id: number;
+  email: string;
+  username: string;
+  age: number;
+}
+```
+
+---
+
+## State Structure
+
+```ts
+interface UserState {
+  users: User[];
+  loading: boolean;
+  error: string | null;
+}
+```
+
+---
+
+## Project Structure
+
+```text
+src/app
+
+app.component.*           # shell (toolbar, layout, footer)
+app.config.ts             # provideRouter, provideStore, provideEffects, provideHttpClient, provideAnimations
+
+users/
+  models/
+    user.model.ts         # User interface + MOCK_USERS
+
+  store/
+    user.actions.ts
+    user.reducer.ts
+    user.effects.ts
+    user.selectors.ts
+
+  user.routes.ts          # /users, /users/:id/edit routes
+
+  components/
+    user-list/
+      user-list.component.ts
+      user-list.component.html
+      user-list.component.scss
+
+    user-edit/
+      user-edit.component.ts
+      user-edit.component.html
+      user-edit.component.scss
+```
+
+---
+
+## Main Functionality
+
+### User List
+
+* Loads users from NgRx Store on initialization (dispatches `loadUsers` if state is empty).
+* Displays:
+
+  * Loading state (spinner)
+  * Error state
+  * Empty state
+  * List of users in a Material table
+* Actions:
+
+  * Edit user (navigates to `/users/:id/edit`)
+  * Delete user (confirmation + `console.log`, dispatches `deleteUser`)
+
+### User Edit Form
+
+Reactive form with validation:
+
+**Email**
+
+* required
+* valid email format
+
+**Username**
+
+* required
+* min length: 3
+* no spaces (pattern: `^[^\s]{3,}$`)
+* cannot be `admin` (custom validator)
+
+**Age**
+
+* required
+* must be between 18 and 100
+
+Save button is disabled when:
+
+* the form is invalid
+
+On submit the form values are logged to the console and an `updateUser` action is dispatched.  
+After a successful submit, the user is navigated back to the users list.
+
+---
+
+## Mock Data
+
+Users are loaded via an NgRx **Effect** that simulates an HTTP request using a **500ms delay**.
+
+Example:
+
+```ts
+export const MOCK_USERS: User[] = [
+  { id: 1, email: 'alice@example.com',  username: 'alice',      age: 28 },
+  { id: 2, email: 'bob@example.com',    username: 'bobby',      age: 34 },
+  { id: 3, email: 'charlie@example.com',username: 'charlie_c',  age: 22 },
+  { id: 4, email: 'dana@example.com',   username: 'dana_d',     age: 30 },
+];
+```
+
+---
+
+## Running the Project
+
+Install dependencies:
 
 ```bash
+npm install
+```
+
+Run the development server:
+
+```bash
+npm start
+# or
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Open:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```text
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## Technologies Used
 
-## Building
+* Angular 19 (standalone components)
+* NgRx Store & Effects
+* TypeScript
+* Reactive Forms
+* Angular Material
+* SCSS
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## Notes
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+This project was created as part of a **technical assignment** to demonstrate Angular, NgRx and Angular Material development skills using a simple user management scenario.
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
