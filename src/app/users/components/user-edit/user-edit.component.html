@@ -10,7 +10,10 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="user-edit-form">
       <div class="form-grid">
         <!-- Email -->
-        <mat-form-field appearance="outline">
+        <mat-form-field
+          appearance="outline"
+          [class.has-error]="email.invalid && (email.dirty || email.touched)"
+        >
           <mat-label>Email</mat-label>
           <input matInput type="email" formControlName="email" />
           <mat-error *ngIf="email.hasError('required')">
@@ -22,7 +25,10 @@
         </mat-form-field>
 
         <!-- Username -->
-        <mat-form-field appearance="outline">
+        <mat-form-field
+          appearance="outline"
+          [class.has-error]="username.invalid && (username.dirty || username.touched)"
+        >
           <mat-label>Username</mat-label>
           <input matInput type="text" formControlName="username" />
           <mat-error *ngIf="username.hasError('required')">
@@ -37,7 +43,10 @@
         </mat-form-field>
 
         <!-- Age -->
-        <mat-form-field appearance="outline">
+        <mat-form-field
+          appearance="outline"
+          [class.has-error]="age.invalid && (age.dirty || age.touched)"
+        >
           <mat-label>Age</mat-label>
           <input matInput type="number" formControlName="age" />
           <mat-error *ngIf="age.hasError('required')">

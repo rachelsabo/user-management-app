@@ -57,3 +57,31 @@
   min-width: 96px;
 }
 
+/* Highlight invalid fields in red once they were touched */
+.mat-mdc-form-field.has-error .mat-mdc-form-field-outline {
+  stroke: #d32f2f;
+}
+
+.mat-mdc-form-field.has-error .mdc-floating-label {
+  color: #d32f2f;
+}
+
+.mat-mdc-form-field.has-error .mat-mdc-text-field-wrapper {
+  background-color: #fdecea;
+}
+
+/* קו מתאר אדום סביב שדה לא תקין */
+:host ::ng-deep mat-form-field.has-error .mdc-notched-outline__leading,
+:host ::ng-deep mat-form-field.has-error .mdc-notched-outline__trailing {
+  border-color: #d32f2f !important;
+}
+
+/* לייבל אדום בשגיאה */
+:host ::ng-deep mat-form-field.has-error .mdc-floating-label {
+  color: #d32f2f !important;
+}
+
+/* רקע עדין לשדה בשגיאה */
+:host ::ng-deep mat-form-field.has-error .mat-mdc-text-field-wrapper {
+  background-color: #fdecea;
+}
