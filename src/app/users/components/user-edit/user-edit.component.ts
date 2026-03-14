@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormBuilder,
   ReactiveFormsModule,
@@ -52,6 +53,7 @@ export class UserEditComponent implements OnInit {
   private readonly store = inject(Store);
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   private userId!: number;
 
@@ -98,7 +100,10 @@ export class UserEditComponent implements OnInit {
 
     this.store
       .select(selectUserById(this.userId))
-      .pipe(filter((user): user is User => !!user))
+      .pipe(
+        filter((user): user is User => !!user),
+        takeUntilDestroyed(this.destroyRef)
+      )
       .subscribe((user) => {
         this.patchForm(user);
       });
