@@ -47,9 +47,6 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  onEdit(user: User): void {
-  }
-
   onDelete(user: User): void {
     const confirmed = confirm(`Are you sure you want to delete "${user.username}"?`);
     if (!confirmed) {
